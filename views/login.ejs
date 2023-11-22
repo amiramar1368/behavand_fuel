@@ -1,0 +1,23 @@
+<div id="main-back" class="mx-auto">
+  <main class="form-signin w-100">
+    <form id="login" class="text-center">
+      <img id="logo" src="/images/bistun-logo.png" alt="" width="100" height="100">
+      <h2 class="h3 mb-4 fw-normal ">انبارداری</h2>
+      <h6 class="h6 mb-5 fw-normal">برای مشاهده سامانه وارد شوید</h6>
+      
+      <div class="form-floating" style="margin-bottom: 15px;">
+        <input type="text" id="login_input" class="form-control" id="floatingInput" >
+        <label for="floatingInput">نام کاربری</label>
+      </div>
+      <div class="form-floating" style="margin-bottom: 35px;">
+        <input type="password" id="password_input" class="form-control" id="floatingPassword">
+        <label for="floatingPassword">کلمه عبور</label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit"><span class="spinner-border d-none" role="status" aria-hidden="true"></span><span id="login-text">ورود</span></button>
+    </form>
+</main>
+</div>
+    <%-include("./modals/izitoast.ejs")%>
+  <script src="/js/axios.js"></script>
+  <script src="/js/login.js"></script>
+  

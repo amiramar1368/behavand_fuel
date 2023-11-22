@@ -1,0 +1,63 @@
+<style>
+    #close-btn{
+      margin-left: 5px !important;
+      width: 5% !important;
+    }
+    .modal-content {
+      width: 60% !important;
+      min-width: 500px !important;
+    }
+    .modal-dialog{
+      max-width: 50%;
+    }
+    .modal-title{
+      font-size: 0.8rem;
+    }
+   
+</style>
+
+  <div class="modal fade" id="edit-warehouse-good-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">ویرایش</h4>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="margin-top: 25px">
+            <div class="col-sm-3">
+              <label class="control-label">انبار</label>
+              <select
+              class="form-select"
+              id="modal-warehouse"
+            ></select>            </div>
+            <div class="col-sm-3">
+              <label class="control-label">کالا/قطعه</label>
+              <select onchange="get_codes_for_warehouse(this.value)" class="form-select" id="modal-good">
+                <option selected></option>
+          </select>
+             </div>
+            <div class="col-sm-3">
+              <label class="control-label">کد اموال</label>
+              <select id="code1" name="code" class="form-select selectpicker">
+                <option value="" disabled selected></option>
+              </select>
+            </div>
+            <div class="col-sm-3">
+              <label class="control-label">تعداد</label>
+              <input id="number1" placeholder="" class="form-control text-uppercase" value="1" type="number" />
+            </div>
+            <div class="col-sm-3">
+              <label class="control-label">موقعیت</label>
+              <input id="position1" placeholder="" class="form-control text-uppercase" type="text" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+          <button id="edit-warehouse-good" type="button" class="btn btn-primary" data-dismiss="modal">ویرایش</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

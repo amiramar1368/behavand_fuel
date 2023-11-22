@@ -1,0 +1,50 @@
+
+@font-face {
+  font-family: 'B Nazanin';
+  src: url('/fonts/BNazanin.woff') format('woff');
+  }
+  .user_div{
+    cursor: pointer;
+    border: 1px solid rgb(197, 195, 195);
+    border-radius: 5px;
+  }
+  *{
+    font-family: 'B Nazanin';
+    color: rgb(34, 29, 29);
+    font-size: 20px;
+  }
+  body{
+    background-color: rgb(235, 231, 231) !important;
+
+  }
+  textarea {
+    resize: vertical;
+    height: 55px !important;
+  }
+#submit,.search{
+  padding: 0;
+  margin-top: 2.2%;
+}
+#submit{
+  margin-left: 2%;
+}
+button{
+  margin-left: 2%;
+  width: 100%;
+}
+form{
+  padding: 20px 10px 35px 25px;
+  background-color: rgb(223, 217, 217);
+}
+table{
+  margin-top: 5px;
+}
+th{
+  text-align: right !important;
+}
+
+.search_table{
+  height: 350px;
+  overflow: scroll;
+  border: 1px solid rgb(199, 198, 198)
+}

@@ -1,0 +1,191 @@
+<style>
+    #close-btn{
+      margin-left: 5px !important;
+      width: 5% !important;
+    }
+    .modal-content {
+      width: 100% !important;
+    }
+    .modal-dialog{
+      max-width: 50%;
+    }
+    .modal-title{
+      font-size: 0.8rem;
+    }
+   
+</style>
+
+  <div class="modal fade" id="edit-user-activity-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">ویرایش فعالیت</h4>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="margin-top: 25px">
+            <div class="my-2 col-sm-6 col-md-4">
+              <label class="control-label">فعالیت</label><br>
+              <select onchange="show_inputs_in_edit_modal_activity(this)" id="activityId1" class="form-select selectpicker" required>
+                <option disabled selected></option>
+                <% for(let i=0 ; i<activities.length ; i++) {%>
+                  <option value="<%=activities[i].id%>">
+                    <%=activities[i].activity%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">پیمانکار</label><br>
+              <select id="contractor1" class="form-select selectpicker">
+                <option disabled selected></option>
+                <% for(let i=0 ; i<contractors.length ; i++) {%>
+                  <option value="<%=contractors[i].id%>">
+                    <%=contractors[i].name%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">نوع ماشین</label><br>
+              <select onchange="get_machines(this.value)" id="machine-type1" class="form-select selectpicker" >
+                <option disabled selected></option>
+                <% for(let i=0 ; i<machine_types.length ; i++) {%>
+                  <option value="<%=machine_types[i].id%>">
+                    <%=machine_types[i].machine_type%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">نام ماشین</label><br>
+              <select id="machine1" class="form-select selectpicker" >
+                <option disabled selected></option>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">تجهیزات</label><br>
+              <select id="equipment1" class="form-select selectpicker">
+                <option value="VTC">VTC</option>
+                <option value="PANEL PC">PANEL PC</option>
+                <option value="PLC">PLC</option>
+                <option value="HMI && PLC">HMI && PLC</option>
+                <option value="ترکر شهری">ترکر شهری</option>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">نام دکل</label><br>
+              <select id="dakal1" class="form-select selectpicker">
+                <% for(let i=0 ; i<dakals.length ; i++) {%>
+                  <option value="<%=dakals[i].id%>">
+                    <%=dakals[i].name%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">ساعتکار</label><br>
+              <input id="working-hour1" placeholder="" class="form-control" type="text">
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">مدل کانورتر</label><br>
+              <select id="convertor-type1" class="form-select selectpicker">
+                <option value="1" disabled selected></option>
+                <% for(let i=0 ; i<convertors.length ; i++) {%>
+                  <option value="<%=convertors[i].id%>">
+                    <%=convertors[i].convertor%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">مدل بورد</label><br>
+              <select id="board-type1" class="form-select selectpicker">
+                <option value="1" disabled selected></option>
+                <% for(let i=0 ; i<boards.length ; i++) {%>
+                  <option value="<%=boards[i].id%>">
+                    <%=boards[i].board%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">IMEI</label><br>
+              <input id="imei1" placeholder="" class="form-control" type="text">
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">پلاک ماشین</label><br>
+              <input id="number-plate1" placeholder="" class="form-control  text-uppercase" type="text">
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">شماره سیمکارت</label><br>
+              <input id="sim-number1" placeholder="" class="form-control" type="text">
+            </div>
+            <div class="can-toggle d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">کد اموال</label><br>
+              <input id="code1" placeholder="" class="form-control" type="text">
+            </div>
+            <div class="my-2 col-sm-6 col-md-4">
+              <label class="control-label">نیروی کمکی اول</label><br>
+              <select id="first-repairman1" class="form-select selectpicker">
+                <option disabled selected></option>
+                <% for(let i=0 ; i<users.length ; i++) {%>
+                  <option value="<%=users[i].id%>">
+                    <%=users[i].name%>
+                      <%=users[i].family%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="my-2 col-sm-6 col-md-4">
+              <label class="control-label">نیروی کمکی دوم</label><br>
+              <select id="second-repairman1" class="form-select selectpicker">
+                <option disabled selected></option>
+                <% for(let i=0 ; i<users.length ; i++) {%>
+                  <option value="<%=users[i].id%>">
+                    <%=users[i].name%>
+                      <%=users[i].family%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+            <div class="d-none my-2 col-sm-6 col-md-4">
+              <label class="control-label">نیروی کلیدی</label><br>
+              <select id="thirth-repairman1" class="form-select selectpicker">
+                <option disabled selected></option>
+                <% for(let i=0 ; i<users.length ; i++) {%>
+                  <option value="<%=users[i].id%>">
+                    <%=users[i].name%>
+                      <%=users[i].family%>
+                  </option>
+                  <% } %>
+              </select>
+            </div>
+    
+            <div class="my-2 col-sm-6 col-md-4">
+              <label class="control-label">تاریخ</label>
+              <input style="width: 100%; border: 1px solid rgb(204, 200, 200); border-radius: 4px;" type="text"
+                id="activity-date1" placeholder="1402/01/01" value="1402/01/01" required/>
+                <div class="invalid-feedback">
+                  انتخاب تاریخ الزامی می باشد
+                </div>
+            </div>
+            <div class="my-2 col-sm-12">
+              <label class="control-label">توضیحات</label>
+              <textarea id="description1" rows="1" class="form-control" type="text" required></textarea>
+              <div class="invalid-feedback">
+                وارد کردن توضیحات الزامی می باشد
+              </div>
+            </div>
+     
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+          <button id="edit-user-activity" type="button" class="btn btn-primary" data-dismiss="modal">ویرایش</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

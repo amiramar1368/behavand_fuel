@@ -1,0 +1,49 @@
+<style>
+    button.close {
+    width: 4%;
+}
+    .modal-content {
+      width: 60% !important;
+    }
+    .modal-dialog{
+      max-width: 50%;
+    }
+    .modal-title{
+      font-size: 0.8rem;
+    }
+   
+</style>
+
+  <div class="modal fade" id="confirm-pm-Modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">اقدام صورت گرفته</h4>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="margin-top: 25px">
+            
+            <div class="col-sm-9">
+              <label class="control-label">اقدام</label>
+              <select id="activity" class="form-select selectpicker" required>
+                <option value="روشن کردن سیستم و چک کامل">روشن کردن سیستم و چک کامل</option>
+                <option value="در حال تعمیر">در حال تعمیر</option>
+                <option value="مسدودی جاده">مسدودی جاده</option>
+                <option value="نامناسب بودن جای پارک ماشین جهت بازدید">نامناسب بودن جای پارک ماشین جهت بازدید</option>
+                <option value="روشن نکردن سیستم (سایر دلایل)">روشن نکردن سیستم (سایر دلایل)</option>
+                <option value="عدم وجود ماشین در معدن">عدم وجود ماشین در معدن</option>
+                <option value="نبود باتری روی ماشین">نبود باتری روی ماشین</option>
+                <option value="قفل بودن درب ماشین">قفل بودن درب ماشین</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+          <button id="confirm-pm" type="button" class="btn btn-primary" data-dismiss="modal">ثبت</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

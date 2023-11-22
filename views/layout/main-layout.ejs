@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.104.2" />
+  <title>انبارداری</title>  
+  <link rel="stylesheet" href="/css/jalali.css" />
+  <script src="/js/main.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <link href="/css/bootstrap.css" rel="stylesheet" crossorigin="anonymous" />
+  <link href="/css/fontawesome.css" rel="stylesheet" />
+
+  <script src="/js/jalali-moment.browser.js"></script>
+  <link href="/css/main-layout.css" rel="stylesheet" />
+
+  <link href="/css/table.css" rel="stylesheet" />
+
+</head>
+
+<body class="bg-light" dir="rtl">
+  <nav class="navbar navbar-expand-lg fixed-top bg-dark opacity-92" aria-label="Main navigation">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" style="width: 50px;" data-bs-toggle="collapse"
+        data-bs-target="#mynavbar" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="mynavbar">
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a href="/users" class="nav-link btn btn-success">تعریف کاربر</a>
+          </li>
+            <li class="nav-item dropdown">
+              <label for="import-fuel-files" class="nav-link btn btn-info">ایمپورت اکسل</label>
+              <input id="import-fuel-files" type="file" class="d-none" multiple>     
+            </li>
+      
+                </ul>
+                <li class="navbar-brand" id="darkmode_li">
+                  <div class="darkmode-toggle form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="darkmode" />
+                  </div>
+                </li>
+
+                <li class="navbar-brand me-auto" id="username">
+                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%=fullname %>
+                  </a>
+                  <ul class="dropdown-menu" id="username-menu">
+                    <li><a class="dropdown-item" href="/change-password">تغییر کلمه عبور</a></li>
+                    <li><a class="dropdown-item" href="/logout">خروج</a></li>
+                  </ul>
+                </li>
+      </div>
+    </div>
+  </nav>
+  <div id="page-name" class="d-flex align-items-center p-2 my-4 m-2 rounded">
+    <div>
+      <h1>
+        <%=page_name%>
+      </h1>
+    </div>
+  </div>
+
+  <body class="text-center">
+    <%-body%>
+  </body>
+  <%-include("../modals/izitoast.ejs")%>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/axios.js"></script>
+    <script src="/js/moment.js"></script>
+    <script src="/js/jalali-moment.browser.js"></script>
+    <script src="/js/jalali.js"></script>
+    <script src="/js/dark.js"></script>
+    <script src="/js/fuel.js"></script>
+    <script>
+      jalaliDatepicker.startWatch({
+        minDate: "attr",
+        maxDate: "attr",
+      });
+      let screen;
+      let btn;
+      const darkmode_btn = document.getElementById("darkmode");
+      function addDarkmodeWidget() {
+        new Darkmode().showWidget();
+        screen = document.querySelector(".darkmode-layer");
+        btn = document.querySelector(".darkmode-toggle");
+        btn.classList.add("d-none");
+      }
+      window.addEventListener("load", addDarkmodeWidget);
+      darkmode_btn.addEventListener("change", () => {
+        document.body.classList.toggle("darkmode--activated");
+        screen.classList.toggle("darkmode-layer--expanded");
+        screen.classList.toggle("darkmode-layer--no-transition");
+        screen.classList.toggle("darkmode-layer--simple");
+
+        if (localStorage.darkmode == "false") {
+          localStorage.darkmode = "true";
+          success_izitoast("حالت شب فعال گردید");
+        } else {
+          success_izitoast("حالت شب غیر فعال گردید");
+          localStorage.darkmode = "false";
+        }
+      });
+    </script>
+</body>
+<script>
+  $(document).ready(function () {
+    $(".dropdown-submenu a.test").on("click", function (e) {
+      $(this).next("ul").toggle();
+      e.stopPropagation();
+      e.preventDefault();
+    });
+    Date.prototype.addDays = function (days) {
+      this.setDate(this.getDate() + parseInt(days));
+      return this;
+    };
+    (new Date()).toLocaleDateString()
+    const previos_day = ((new Date()).addDays(-5)).toLocaleDateString();
+    const d_start = moment(previos_day).locale("fa").format("YYYY/MM/DD");
+    const d = moment(new Date()).locale("fa").format("YYYY/MM/DD");
+    const start_at = document.getElementById("start-at");
+    const end_at = document.getElementById("end-at");
+    const repair_date = document.getElementById("repair-date");
+    const montage_date = document.getElementById("montage-date");
+    const activity_date = document.getElementById("activity-date");
+    const deliver_date = document.getElementById("de_date");
+    if (start_at) {
+      start_at.value = d_start;
+    }
+    if (end_at) {
+      end_at.value = d
+    }
+    if (repair_date) {
+      repair_date.value = d
+    }
+    if (montage_date) {
+      montage_date.value = d
+    }
+    if (activity_date) {
+      activity_date.value = d
+    }
+    if (deliver_date) {
+      deliver_date.value = d
+    }
+  });
+</script>
+
+</html>

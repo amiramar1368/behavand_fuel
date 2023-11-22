@@ -1,0 +1,67 @@
+<style>
+  button.close {
+    width: 4%;
+    border: 1px solid #eee;
+    background-color: #FFFFFF;
+  }
+  .modal-content {
+    width: 60% !important;
+  }
+  .modal-dialog {
+    max-width: 50%;
+  }
+  .modal-title {
+    font-size: 0.8rem;
+  }
+</style>
+
+<div class="modal fade" id="end-alloc-good-Modal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">پایان تخصیص</h4>
+        <button type="button" class="close" data-bs-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="margin-top: 25px">
+          <div class="col-sm-6">
+            <label id="label" class="control-label" for="modal_warehouse"
+              >ارسال به :</label
+            >
+            <select
+              class="form-select"
+              name="warehouse"
+              id="modal_warehouse"
+            ></select>
+            <label id="label-contractor-stock" for="">افزودن به موجودی :</label>
+            <select
+              class="form-select"
+              id="contractor-stock"
+            ></select>
+
+            <select
+              class="form-select"
+              id="contractor"
+            ></select>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          لغو
+        </button>
+        <button
+          id="end-alloc-good"
+          type="button"
+          class="btn btn-primary"
+          data-dismiss="modal"
+        >
+          ارسال
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

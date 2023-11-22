@@ -1,0 +1,117 @@
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
+<div class="container-fluid">
+  <div id="records">
+    <form id="add-user" class="needs-validation" novalidate autocomplete="off">
+      <div class="row" style="margin-top: 25px">
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <label class="control-label">نام</label>
+          <input id="name" placeholder="" class="form-control" type="text" required />
+          <div class="invalid-feedback">
+            وارد کردن نام الزامی می باشد
+          </div>
+        </div>
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <label class="control-label">نام خانوادگی</label>
+          <input id="family" placeholder="" class="form-control" type="text" required/>
+          <div class="invalid-feedback">
+            وارد کردن نام خانوادگی الزامی می باشد
+          </div>
+        </div>
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2" >
+          <label class="control-label">واحد</label>
+          <select id="unit" name="unit" class="form-select selectpicker" required>
+            <option value="" disabled selected></option> 
+            <option value="مدیریت" >مدیریت</option>   
+            <option value="استخراج" >استخراج</option>  
+            <option value="اداری" >اداری</option>  
+            <option value="سخت افزار" >سخت افزار</option>  
+            <option value="تحقیق و توسعه" >تحقیق و توسعه</option>  
+            <option value="شبکه" >شبکه</option>  
+            <option value="آبدارخانه" >آبدارخانه</option>  
+          </select>
+          <div class="invalid-feedback">
+            انتخاب واحد پرسنل الزامی می باشد
+          </div>
+      </div> 
+      <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+        <label class="control-label">نقش :</label>
+        <select id="role" class="form-select selectpicker" required>
+          <option value="" disabled selected></option> 
+          <option value="admin" >مدیر سیستم</option>    
+          <option value="admin-edari" >مدیر اداری</option>    
+          <option value="admin-hardware" >مدیر سخت افزار</option>    
+          <option value="hardware" >سخت افزار</option>    
+          <option value="driver" >راننده</option>    
+          <option value="user" >کاربر</option>    
+        </select>            
+      </div>
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <label class="control-label">کد پرسنلی</label>
+          <input id="personal_code" placeholder="" class="form-control" type="text" required />
+          <div class="invalid-feedback">
+            وارد کردن کد پرسنلی الزامی می باشد
+          </div>
+        </div>
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <label class="control-label">نام کاربری</label>
+          <input id="login" placeholder="" class="form-control" type="text" required />
+          <div class="invalid-feedback">
+            وارد کردن نام کاربری الزامی می باشد
+          </div>
+        </div>
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <label class="control-label">کلمه عبور</label>
+          <input id="password" placeholder="" class="form-control" type="password" required />
+          <div class="invalid-feedback">
+            وارد کردن کلمه عبور الزامی می باشد
+          </div>
+        </div>
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+          <label class="control-label">تکرار کلمه عبور</label>
+          <input id="confirm-password" placeholder="" class="form-control" type="password" required />
+          <div class="invalid-feedback">
+            وارد کردن تکرار کلمه عبور الزامی می باشد
+          </div>
+        </div>
+        <div class="my-2 col-sm-6">
+          <label class="control-label">توضیحات</label>
+          <textarea
+            id="description"
+            name="description"
+            placeholder=""
+            class="form-control"
+            type="text"
+            rows="1"
+          ></textarea>
+        </div>
+
+        <div class="my-2 col-sm-6 col-md-4 col-lg-3 align-self-center">
+          <label class="control-label"></label><br />
+          <button class="btn btn-primary" type="submit">ثبت</button>
+          <button id="search_user" class="btn btn-primary">جستجو</button>
+        </div>
+      </div>
+    </form>
+    <div class="col-sm-12 overflow-scroll">
+      <table class="table table-striped table-hover text-center">
+        <thead>
+          <th>ردیف</th>
+          <th>نام</th>
+          <th>نام خانوادگی</th>
+          <th>کد پرسنلی</th>
+          <th>نام کاربری</th>
+          <th>نقش</th>
+          <th>عملیات</th>
+        </thead>
+        <tbody id="users"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%-include("./modals/confirm-modal.ejs")%> <%-include("./modals/edit-user-modal.ejs")%>
+<%-include("./modals/edit-password-modal.ejs")%> <%-include("./modals/izitoast.ejs")%>
+<script src="/js/axios.js"></script>

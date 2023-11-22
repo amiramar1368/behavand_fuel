@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "iranyekan";
+  src: url("/fonts/IRANYekan.woff") format("woff");
+}
+
+.form-signin {
+  color: #eee;
+  float: right;
+  margin-right: 10vw;
+  margin-top: 20vh;
+  max-width: 350px;
+  border: 1px solid #0f0303;
+  padding:  30px 30px 80px 30px;
+  border-radius: 20px;
+  background-color: #131212;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="password"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#logo{
+  margin-top: 3px;
+}
+.form-floating{
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+}

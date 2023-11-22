@@ -1,0 +1,89 @@
+<style>
+    #close-btn{
+      margin-left: 5px !important;
+      width: 5% !important;
+    }
+    .modal-content {
+      width: 100% !important;
+    }
+    .modal-dialog{
+      max-width: 50%;
+    }
+    .modal-title{
+      font-size: 0.8rem;
+    }
+   
+</style>
+
+  <div class="modal fade" id="edit-machine-good-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">ویرایش</h4>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="margin-top: 25px">
+            
+            <div class="my-2 col-sm-6 col-md-4" > <label class="control-label">نیروی کمکی اول</label>
+              <select  id="first-repairman1" class="form-select selectpicker" >
+                <option value="" disabled selected></option>
+                  <% for(let i=0 ; i<users.length ; i++) {%>
+                    <option value="<%=users[i].id%>"><%=users[i].name%> <%=users[i].family  %></option>
+                    <% } %>     
+              </select>
+            </div>   
+     <div class="my-2 col-sm-6 col-md-4" > <label class="control-label">نیروی کمکی دوم</label>
+       <select  id="second-repairman1" class="form-select selectpicker" >
+         <option value="" disabled selected></option>
+               <% for(let i=0 ; i<users.length ; i++) {%>
+                 <option value="<%=users[i].id%>"><%=users[i].name%> <%=users[i].family  %></option>
+                 <% } %>      
+       </select>
+     </div>
+         <div class="d-none my-2 col-sm-6 col-md-4" > <label class="control-label">تست کننده</label>
+           <select  id="tester1" class="form-select selectpicker" >
+             <option value="" disabled selected></option>
+               <% for(let i=0 ; i<users.length ; i++) {%>
+                 <option value="<%=users[i].id%>"><%=users[i].name%> <%=users[i].family  %></option>
+                 <% } %>       
+           </select>
+         </div>
+         <div class="d-none my-2 col-sm-6 col-md-4" > <label class="control-label">تحویل دهنده</label>
+           <select  id="deliverer1" class="form-select selectpicker" >
+             <option value="" disabled selected></option>
+               <% for(let i=0 ; i<users.length ; i++) {%>
+                 <option value="<%=users[i].id%>"><%=users[i].name%> <%=users[i].family  %></option>
+                 <% } %>       
+           </select>
+         </div>
+         <div class="d-none my-2 col-sm-6 col-md-4" > <label class="control-label">تحویل گیرنده</label>
+           <select  id="receiver1" class="form-select selectpicker" >
+             <option value="" disabled selected></option>
+               <% for(let i=0 ; i<deliverers.length ; i++) {%>
+                 <option value="<%=deliverers[i].id%>"><%=deliverers[i].name%> <%=deliverers[i].family  %></option>
+                 <% } %>       
+           </select>
+         </div>
+        <div class="my-2 col-sm-6 col-md-4" >
+           <label class="control-label">تاریخ نصب / باز کردن</label>
+         <input style="width: 100%; border: 1px solid rgb(204, 200, 200); border-radius: 4px;"  type="text" name="montage-date1" id="montage-date1"  data-jdp data-jdp-max-date="today" placeholder="--/--/----"  required/>
+         </div>
+     <div class="my-2 col-sm-6">
+       <label class="control-label">توضیحات</label>
+       <textarea id="description1" name="description" placeholder="" rows="1" class="form-control" type="text" required></textarea>
+       <div class="invalid-feedback">
+         وارد کردن توضیحات الزامی می باشد
+       </div>
+     </div>
+        
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+          <button id="edit-machine-good" type="button" class="btn btn-primary" data-dismiss="modal">ویرایش</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

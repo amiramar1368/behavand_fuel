@@ -1,0 +1,71 @@
+<style>
+    #close-btn{
+      margin-left: 5px !important;
+      width: 5% !important;
+    }
+    .modal-content {
+      width: 100% !important;
+    }
+    .modal-dialog{
+      max-width: 50%;
+    }
+    .modal-title{
+      font-size: 0.8rem;
+    }
+   
+</style>
+
+  <div class="modal fade" id="edit-user-Modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">ویرایش پرسنل</h4>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="margin-top: 25px">
+            
+            <div class="col-sm-3">
+              <label class="control-label">نام :</label>
+              <input id="name1" name="name1" placeholder="" class="form-control text-uppercase" type="text" />
+            </div>
+            <div class="col-sm-3">
+              <label class="control-label">نام خانوادگی</label>
+              <input id="family1" name="family1" placeholder="" class="form-control text-uppercase" type="text" />
+            </div>
+            <div class="col-sm-3">
+              <label class="control-label">کد پرسنلی :</label>
+              <input id="personal-code1" name="personal-code1" placeholder="" class="form-control text-uppercase" type="text" />
+            </div>
+            <div class="col-sm-3">
+              <label class="control-label">نام کاربری :</label>
+              <input id="login1"  placeholder="" class="form-control" type="text" />
+            </div>
+            
+            
+          </div>
+  
+          <div class="row" style="margin-top: 25px">
+        
+            <div class="col-sm-3">
+              <label class="control-label">نقش :</label>
+              <select id="role1" class="form-select selectpicker" required>
+                <option value="" disabled selected></option> 
+                <option value="admin" >مدیر سیستم</option>    
+                <option value="admin-edari" >مدیر اداری</option>    
+                <option value="admin-hardware" >مدیر سخت افزار</option>    
+                <option value="hardware" >سخت افزار</option>    
+                <option value="driver" >راننده</option>    
+                <option value="user" >کاربر</option>    
+              </select>            
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+          <button id="edit-user" type="button" class="btn btn-primary" data-dismiss="modal">ویرایش</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

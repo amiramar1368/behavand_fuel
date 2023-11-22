@@ -1,0 +1,30 @@
+
+  <style>
+  #close-btn{
+    margin-left: 5px !important;
+    width: 5% !important;
+  }
+  .modal-dialog{
+    max-width: 60%;
+    min-width: 250px;
+  }
+  .modal-title{
+    font-size: 0.8rem;
+  }
+</style>
+
+<div style="width: 60%; margin-left:20%;" class="modal fade"  id="confirm-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+          <button type="button" id="close-btn" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body"><p>آیا از انجام عملیات اطمینان دارید؟</p></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+          <button id="change_status" type="button" class="btn btn-danger" data-dismiss="modal">بله</button>
+        </div>
+      </div>
+    </div>
+  </div>

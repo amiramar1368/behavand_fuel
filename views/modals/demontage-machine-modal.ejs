@@ -1,0 +1,40 @@
+<style>
+  .modal-dialog {
+    max-width: 50%;
+  }
+  .modal-title {
+    font-size: 0.8rem;
+  }
+  .myconfirm-modal{
+    max-width: 30% !important;
+  }
+  button.close{
+    width: 5%;
+  }
+</style>
+<div class="modal fade" id="machine-demontage-Modal" role="dialog">
+  <div class="modal-dialog modal-sm myconfirm-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">حذف دستگاه</h4>
+        <button type="button" class="close" data-bs-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body"><p> آیا از باز شدن تجهیزات این دستگاه اطمینان دارید؟</p></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          لغو
+        </button>
+        <button
+          id="demontage-machine"
+          type="button"
+          class="btn btn-danger"
+          data-dismiss="modal"
+        >
+          بله
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

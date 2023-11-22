@@ -1,0 +1,72 @@
+<style>
+    #close-btn{
+      margin-left: 5px !important;
+      width: 5% !important;
+    }
+    .modal-content {
+      width: 100% !important;
+    }
+    .modal-dialog{
+      max-width: 50%;
+    }
+    .modal-title{
+      font-size: 0.8rem;
+    }
+   
+</style>
+
+  <div class="modal fade" id="edit-building-Modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">ویرایش ساختمان</h4>
+          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="margin-top: 25px">
+            
+            <div class="col-sm-4">
+              <label class="control-label">نام ساختمان :</label>
+              <input id="name1" name="name1" placeholder="" class="form-control text-uppercase" type="text" />
+            </div>
+            
+            <div class="col-sm-4">
+              <label class="control-label">نوع ساختمان :</label>
+              <select class="form-control" name="type" id="type">
+                <option value="" disabled selected></option>
+                <option>پیش ساخته</option>
+                <option>سوییت</option>
+                <option>دو طبقه</option>
+                <option>کانکس</option>
+                <option>سایر</option>
+              </select>
+            </div>
+            
+            <div class="col-sm-4">
+              <label class="control-label">نوع کاربری :</label>
+              <select class="form-control" name="usage" id="usage">
+                <option value="" disabled selected></option>
+                <option>خوابگاه</option>
+                <option>اداری</option>
+                <option>سایر</option>
+              </select>
+            </div>
+            
+          </div>
+  
+          <div class="row" style="margin-top: 25px">
+        
+            <div class="col-sm-4">
+              <label class="control-label">تعداد اتاق :</label>
+              <input id="number" name="number" placeholder="" class="form-control" type="number" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+          <button id="edit-building" type="button" class="btn btn-primary" data-dismiss="modal">ویرایش</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
