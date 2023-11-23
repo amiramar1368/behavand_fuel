@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
 import bcrypt from "bcrypt";
-import formidable from "formidable";
+import formidable, { IncomingForm } from "formidable";
 import XLSX from "xlsx";
 
 import { sequelize } from "../model/db.js";
@@ -10,44 +10,42 @@ import { validate_date } from "../helper/validate-date.js";
 import { logger } from "../helper/winston.js";
 import { yup_user, yup_attach_user } from "../helper/yup.js";
 
-
 export class Fuel {
-
+  // static async import_files(req, res) {
   static async import_files(req, res) {
-      const user = await req.user;
-    
-      const form = formidable({ multiples: true });
-      form.parse(req, async (err, fields, files) => {
-        if (err) {
-          console.log("error in import machine : ", err);
-          return res.json({ success: false, message: "خطا در ایمپورت فایل" });
+    const form = formidable({ multiples: true,
+      maxFileSize: 1024 * 1024 * 100 });
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        console.log(err);
+      } else {
+        for (let i = 0; i < files.file.length; i++) {
+          console.log(i,files.file[i].originalFilename);
         }
-        console.log(files);
-        return res.json({
-          files,
-          success: false,
-          message: "تنها مجاز به آپلود فایل اکسل می باشید",
-        });
-      })
-    }
+        // console.log(111,files.file.length);
+      }
+      res.json({file:files.file})
+    });
+  }
 
   // static async import_files(req, res) {
   //   try {
   //     const user = await req.user;
-    
   //     const form = formidable({ multiples: true });
   //     form.parse(req, async (err, fields, files) => {
   //       if (err) {
-  //         console.log("error in import machine : ", err);
   //         return res.json({ success: false, message: "خطا در ایمپورت فایل" });
   //       }
   //       console.log(10);
-  //       console.log(files);
-  //       return res.json({
-  //         files,
-  //         success: false,
-  //         message: "تنها مجاز به آپلود فایل اکسل می باشید",
-  //       });
+  //       console.log(fields);
+  //       console.log(10);
+  //       if (!files.file) {
+  //         return res.json({
+  //           success: false,
+  //           message: "صفحه را رفرش نمایید",
+  //         });
+  //       }
+  //       return
   //       const file_path = files.file.filepath;
   //       const file_type = files.file.originalFilename.split(".")[1];
   //       if (file_type != "xlsx") {
@@ -61,61 +59,206 @@ export class Fuel {
   //       const sheet = workbook.Sheets[sheets[0]];
   //       const data = XLSX.utils.sheet_to_json(sheet);
   //       const keys = Object.keys(data[0]);
-
   //       const allowed_keys = [
-  //         "پیمانکار",
-  //         "نوع ماشین",
+  //         "نوع تجهیزات",
   //         "نام ماشین",
-  //         "شماره سخت افزار",
-  //         "وضعیت ماشین",
+  //         "نوع وسیله",
+  //         "قرارداد",
+  //         "کد سخت‌افزاری",
+  //         "VTC",
+  //         "LCD",
+  //         "BASE BOX",
+  //         "ردیف",
   //       ];
-
   //       for (let i = 1; i < keys.length; i++) {
-  //         if (!allowed_keys.includes(keys[i])) {
+  //         if (!allowed_keys.includes(keys[i].trim().toLocaleUpperCase())) {
   //           return res.json({
   //             success: false,
-  //             message: "فرمت اکسل وارد شده صحیح نمی باشد",
+  //             message: `عنوان ${keys[i]} مجاز نمی باشد`,
   //           });
   //         }
   //       }
-
+  //       const contractors = await req.models.Contractor.findAll();
+  //       const machine_types = await req.models.Machine_Type.findAll();
+  //       const equipment_types = await req.models.Equipment_Type.findAll();
+  //       const good_types = await req.models.Good_Type.findAll();
+  //       const cleaned_data = [];
+  //       const good_codes = {};
+  //       for (let i = 0; i < data.length; i++) {
+  //         let vtc_goodTypeId = 1;
+  //         let lcd_goodTypeId = 1;
+  //         let basebox_goodTypeId = 1;
+  //         let contractor = await contractors.find(
+  //           (item) => item.name == String(data[i]["قرارداد"]).trim()
+  //         );
+  //         let machine_type = await machine_types.find(
+  //           (item) => item.machine_type == String(data[i]["نوع وسیله"]).trim()
+  //         );
+  //         let equipment_type = await equipment_types.find(
+  //           (item) =>
+  //             item.equipment_type == String(data[i]["نوع تجهیزات"]).trim() &&
+  //             item.machine_type == machine_type.id
+  //         );
+  //         let good_type_vtc = await good_types.find(
+  //           (item) => item.name == "VTC"
+  //         );
+  //         let good_type_lcd = await good_types.find(
+  //           (item) => item.name == "LCD"
+  //         );
+  //         let good_type_basebox = await good_types.find(
+  //           (item) => item.name == "NETWORK"
+  //         );
+  //         if (good_type_vtc) {
+  //           vtc_goodTypeId = good_type_vtc.id;
+  //         }
+  //         if (good_type_lcd) {
+  //           lcd_goodTypeId = good_type_lcd.id;
+  //         }
+  //         if (good_type_basebox) {
+  //           basebox_goodTypeId = good_type_basebox.id;
+  //         }
+  //         let machine_name = String(data[i]["نام ماشین"]).trim();
+  //         let VTC_code = Number(data[i]["VTC"]);
+  //         let LCD_code = Number(data[i]["LCD"]);
+  //         let BASEBOX_code = Number(data[i]["BASE BOX"]);
+  //         good_codes[machine_name] = [
+  //           { name: "VTC", code: VTC_code },
+  //           { name: "LCD", code: LCD_code },
+  //           { name: "BASE BOX", code: BASEBOX_code },
+  //         ];
+  //         let machine_code = Number(data[i]["کد سخت‌افزاری"]);
+  //         cleaned_data.push({
+  //           contractorId: contractor.id,
+  //           machine_type: machine_type.id,
+  //           pm_period: machine_type.pm_period,
+  //           machine_name,
+  //           good_codes,
+  //           machine_code,
+  //           equipment_type: equipment_type.id,
+  //           goods: { VTC_code, LCD_code, BASEBOX_code },
+  //           vtc_goodTypeId,
+  //           lcd_goodTypeId,
+  //           basebox_goodTypeId,
+  //         });
+  //       }
+  //       Date.prototype.addDays = function (days) {
+  //         this.setDate(this.getDate() + parseInt(days));
+  //         return this;
+  //       };
+  //       let transaction;
   //       try {
-  //         for (let i = 0; i < data.length; i++) {
-  //           let name = String(data[i]["نام ماشین"]).trim().toUpperCase();
-  //           // await req.models.Machine.create({
-  //           //   created_by: user.id,
-  //           //   group: user.group,
-  //           //   contractorId,
-  //           //   machine_type: type.id,
-  //           //   name,
-  //           //   machine_id,
-  //           //   status: machine_state,
-  //           //   pm_period: type.pm_period,
-  //           // });
+  //         for (let i = 0; i < cleaned_data.length; i++) {
+  //           transaction = await sequelize.transaction();
+  //           const machine = await req.models.Machine.create(
+  //             {
+  //               created_by: user.id,
+  //               group: user.group,
+  //               contractorId: cleaned_data[i].contractorId,
+  //               machine_type: cleaned_data[i].machine_type,
+  //               name: cleaned_data[i].machine_name,
+  //               pm_period: cleaned_data[i].pm_period,
+  //               machine_id: cleaned_data[i].machine_code,
+  //               status: 1,
+  //               equipment_type: cleaned_data[i].equipment_type,
+  //             },
+  //             { transaction }
+  //           );
+  //           const last_pm = new Date();
+  //           const next_pm = last_pm.addDays(Number(cleaned_data[i].pm_period));
+  //           const pm = await req.models.Pm_Recived.create(
+  //             {
+  //               pm_by: user.id,
+  //               machineId: machine.id,
+  //               contractorId: cleaned_data[i].contractorId,
+  //               last_pm: Date.now(),
+  //               next_pm,
+  //               status: 1,
+  //             },
+  //             { transaction }
+  //           );
+  //           const goods = cleaned_data[i].goods;
+  //           for (const item in goods) {
+  //             const name = item.split("_")[0];
+  //             let goodTypeId = 1;
+  //             if (name.includes("VTC")) {
+  //               goodTypeId = cleaned_data[i].vtc_goodTypeId;
+  //             } else if (name.includes("LCD")) {
+  //               goodTypeId = cleaned_data[i].lcd_goodTypeId;
+  //             } else if (name.includes("BASE")) {
+  //               goodTypeId = cleaned_data[i].basebox_goodTypeId;
+  //             }
+  //             const good = await req.models.Good.create(
+  //               {
+  //                 created_by: user.id,
+  //                 group: user.group,
+  //                 name,
+  //                 code: goods[item],
+  //                 machineId: machine.id,
+  //                 is_allocated: 1,
+  //                 is_public: 0,
+  //                 equipmentTypeId: cleaned_data[i].equipment_type,
+  //                 goodTypeId,
+  //               },
+  //               { transaction }
+  //             );
+
+  //             const good_info = await req.models.Good_Info.create(
+  //               {
+  //                 created_by: user.id,
+  //                 machineId: machine.id,
+  //                 goodId: good.id,
+  //                 start_alloc: Date.now(),
+  //               },
+  //               { transaction }
+  //             );
+  //           }
+  //           const machine_good = await req.models.Machine_Good.create(
+  //             {
+  //               created_by: user.id,
+  //               group: user.group,
+  //               contractorId: cleaned_data[i].contractorId,
+  //               machineId: machine.id,
+  //               good_codes: JSON.stringify(
+  //                 cleaned_data[i].good_codes[machine.name]
+  //               ),
+  //               number: 1,
+  //               first_repairman: 1,
+  //               second_repairman: 1,
+  //               thirth_repairman: 1,
+  //               tester: 1,
+  //               receiver: 1,
+  //               deliver: 1,
+  //               montage_date: Date.now(),
+  //               operation_type: 1,
+  //               description: "ایمپورت اکسل",
+  //             },
+  //             { transaction }
+  //           );
+  //           await transaction.commit();
   //         }
   //       } catch (err) {
-  //         console.log("import machine :", err);
-  //         // check for duplicate code in imported excell
-  //         // if (err.errors[0].type == "unique violation") {
-  //         //   return res.json({
-  //         //     success: false,
-  //         //     message:
-  //         //       "امکان وارد کردن ماشین با نام یا شماره سخت افزار تکراری وجود ندارد",
-  //         //   });
-  //         // } else {
-  //         //   return res.json({
-  //         //     success: false,
-  //         //     message: "خطا در ایمپورت ماشین آلات",
-  //         //   });
+  //         await transaction.rollback();
+  //         if (err.errors) {
+  //           if (err.errors[0].type == "unique violation") {
+  //             return res.json({
+  //               success: false,
+  //               message: "امکان درج داده تکراری وجود ندارد",
+  //             });
+  //           }
+  //         }
+  //         return res.json({
+  //           success: false,
+  //           message: "خطا در ایمپورت ماشین آلات",
+  //         });
   //         // }
   //       }
   //       return res.json({
   //         success: true,
-  //         message: "با موفقیت ایمپورت گردید",
+  //         message: "اموال با موفقیت ایمپورت گردید",
   //       });
   //     });
   //   } catch (err) {
-  //     logger.log("error", `admin-controller _ import_machine() : ${err}`);
+  //     logger.log("error", `admin-controller _ import_machine_good() : ${err}`);
   //     res.json({ success: false, message: "خطا در ایمپورت ماشین آلات" });
   //   }
   // }
@@ -217,7 +360,7 @@ export class User {
               var contractor_building_id =
                 attach_building[i].contractorBuildingId;
               var attached_room = attach_building.find(
-                (item) => item.contractorBuildingId == contractor_building_id,
+                (item) => item.contractorBuildingId == contractor_building_id
               );
               attached_room.users_id += "&" + users_id_for_db;
               attached_room.save();
@@ -226,7 +369,7 @@ export class User {
               for (let i = 0; i < users_id.length; i++) {
                 await req.models.User.update(
                   { is_allocated: "1", room_name, buildingId },
-                  { where: { id: users_id[i] } },
+                  { where: { id: users_id[i] } }
                 );
               }
 
@@ -549,7 +692,7 @@ async function remain_in_warehouse(req, res) {
       include: [req.models.Good, req.models.Warehouse],
     });
     var warehouse_good = warehouse_goods.filter(
-      (item) => item.remain > 0 && item.remain < 10,
+      (item) => item.remain > 0 && item.remain < 10
     );
     var goods_name = [];
     var goods = [];
@@ -574,7 +717,7 @@ async function remain_in_warehouse(req, res) {
     }
 
     var unique_goods_name = goods_name.filter(
-      (arr, index, self) => index === self.findIndex((t) => t === arr),
+      (arr, index, self) => index === self.findIndex((t) => t === arr)
     );
     var counter = [];
     for (let j = 0; j < unique_goods_name.length; j++) {
