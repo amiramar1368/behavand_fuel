@@ -22,7 +22,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
-    "formidable": "^2.1.1",
+    "formidable": "^3.5.1",
     "jalali-moment": "^3.3.11",
     "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5-lts.1",

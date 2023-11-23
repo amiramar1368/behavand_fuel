@@ -11,20 +11,44 @@ import { logger } from "../helper/winston.js";
 import { yup_user, yup_attach_user } from "../helper/yup.js";
 
 export class Fuel {
-  // static async import_files(req, res) {
   static async import_files(req, res) {
-    const form = formidable({ multiples: true,
-      maxFileSize: 1024 * 1024 * 100 });
+    const user = await req.user;
+    const form = formidable();
     form.parse(req, async (err, fields, files) => {
       if (err) {
         console.log(err);
       } else {
         for (let i = 0; i < files.file.length; i++) {
-          console.log(i,files.file[i].originalFilename);
+          if (i == files.file.length - 1) {
+            const file_path = files.file[i].filepath;
+            const file_type = files.file[i].originalFilename.split(".")[1];
+            if (file_type != "csv") {
+              return res.json({
+                success: false,
+                message: "تنها مجاز به آپلود فایل اکسل می باشید",
+              });
+            }
+            const workbook = XLSX.readFile(file_path);
+            const sheets = workbook.SheetNames;
+            const sheet = workbook.Sheets[sheets[0]];
+            console.log(sheet);
+            const data = XLSX.utils.sheet_to_json(sheet);
+            const keys = Object.keys(data[0]);
+            const time =  data[0]["__EMPTY_1"]
+           console.log(time);
+           console.log(new Date(time));
+            for (let i = 0; i < keys.length; i++) {
+              await req.models.Fuel.create({
+                created_by:user.id,
+                machine_name:keys[i],
+                value:data[0][keys[i]],
+                time:data[0]["__EMPTY"]
+              })
+            }
+          }
         }
-        // console.log(111,files.file.length);
       }
-      res.json({file:files.file})
+      res.json({ file: files.file });
     });
   }
 
@@ -36,16 +60,12 @@ export class Fuel {
   //       if (err) {
   //         return res.json({ success: false, message: "خطا در ایمپورت فایل" });
   //       }
-  //       console.log(10);
-  //       console.log(fields);
-  //       console.log(10);
-  //       if (!files.file) {
+  //       if (files.file.length===0) {
   //         return res.json({
   //           success: false,
   //           message: "صفحه را رفرش نمایید",
   //         });
   //       }
-  //       return
   //       const file_path = files.file.filepath;
   //       const file_type = files.file.originalFilename.split(".")[1];
   //       if (file_type != "xlsx") {
@@ -360,7 +380,7 @@ export class User {
               var contractor_building_id =
                 attach_building[i].contractorBuildingId;
               var attached_room = attach_building.find(
-                (item) => item.contractorBuildingId == contractor_building_id
+                (item) => item.contractorBuildingId == contractor_building_id,
               );
               attached_room.users_id += "&" + users_id_for_db;
               attached_room.save();
@@ -369,7 +389,7 @@ export class User {
               for (let i = 0; i < users_id.length; i++) {
                 await req.models.User.update(
                   { is_allocated: "1", room_name, buildingId },
-                  { where: { id: users_id[i] } }
+                  { where: { id: users_id[i] } },
                 );
               }
 
@@ -692,7 +712,7 @@ async function remain_in_warehouse(req, res) {
       include: [req.models.Good, req.models.Warehouse],
     });
     var warehouse_good = warehouse_goods.filter(
-      (item) => item.remain > 0 && item.remain < 10
+      (item) => item.remain > 0 && item.remain < 10,
     );
     var goods_name = [];
     var goods = [];
@@ -717,7 +737,7 @@ async function remain_in_warehouse(req, res) {
     }
 
     var unique_goods_name = goods_name.filter(
-      (arr, index, self) => index === self.findIndex((t) => t === arr)
+      (arr, index, self) => index === self.findIndex((t) => t === arr),
     );
     var counter = [];
     for (let j = 0; j < unique_goods_name.length; j++) {

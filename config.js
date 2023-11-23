@@ -1,8 +1,8 @@
 export var db = {
-  name: "pm_db",
+  name: "fuel_db",
   username: "root",
-  // password: "123456",
-  password: "dispatch12",
+  password: "123456",
+  // password: "dispatch12",
   host: "localhost",
   port: 3306,
 };

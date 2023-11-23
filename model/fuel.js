@@ -1,6 +1,6 @@
-export const User_model = (sequelize, { DataTypes }) => {
-  const User = sequelize.define(
-    "user",
+export const Fuel_model = (sequelize, { DataTypes }) => {
+  const Fuel = sequelize.define(
+    "fuel",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -13,41 +13,30 @@ export const User_model = (sequelize, { DataTypes }) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      name: {
+      machine_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      family: {
+      value: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      personal_code: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      role: {
+      time: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      login: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      }
     },
     {}
   );
   // sequelize.sync({ alter: true });
 
-  User.associate = (models) => {
+  
+  Fuel.associate = (models) => {
     // associations can be defined here
-    // User.hasMany(models.Uesr_Good,{
-    // });
+    Fuel.belongsTo(models.User, {
+      foreignKey: "created_by",
+    });
   };
 
-  return User;
+  return Fuel;
 };
